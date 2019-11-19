@@ -26,6 +26,7 @@ public class HelloScreenController {
     public void startTestClick(ActionEvent actionEvent) {
         try {
             TestParticipant tester = new TestParticipant(textAreaNickname.getText());
+            
             Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
             Stage s = new Stage();
             s.setScene(new Scene(root, 500, 500));
