@@ -17,5 +17,6 @@
                 onAction="#nextQuestionClick"
                 prefHeight="42.0" prefWidth="151.0" text="Next"/>
     </AnchorPane>
+
 </Group>
 

@@ -42,7 +42,7 @@ public class HelloScreenController {
                 Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
                 Stage s = new Stage();
                 s.setScene(new Scene(root, 500, 500));
-                new Test().start();
+                new Test().nextQuestionIndex();
                 s.show();
                 ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
             } catch (IOException e) {

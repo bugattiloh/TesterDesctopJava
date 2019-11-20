@@ -8,7 +8,6 @@ import javafx.scene.control.TextArea;
 import tests.AnswerOfParticipant;
 import tests.Question;
 import tests.Test;
-import tests.TestParticipant;
 
 public class TestScreenController {
     Test test=new Test();
@@ -24,12 +23,12 @@ public class TestScreenController {
 
     @FXML
     public void nextQuestionClick(ActionEvent actionEvent) {
-        test.start();
+        test.nextQuestionIndex();
         Question question =new Question("hello");
         labelQuestion.setText(question.getQuestion());
         AnswerOfParticipant answerOfParticipant=new AnswerOfParticipant(textAreaAnswer.getText());
         if (test.isThisTrueAnswer(test.getCurrentQuestionIndex())){
-            tester.
+
         }
         textAreaAnswer.setText(null);
     }

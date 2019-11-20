@@ -6,18 +6,18 @@ public class Test {
 
     private List<TrueAnswer> trueAnswers;
     private List<AnswerOfParticipant> answersOfParticipant;
-    private int currentQuestionIndex;
+    private int currentQuestionIndex=0;
 
-    public void setCurrentQuestionIndex(int currentQuestionIndex) {
-        this.currentQuestionIndex = currentQuestionIndex;
-    }
-
-    public void start() {
-        currentQuestionIndex = 0;
+    public void nextQuestionIndex() {
+        currentQuestionIndex++;
     }
 
     public int getCurrentQuestionIndex() {
         return currentQuestionIndex;
+    }
+
+    public void setCurrentQuestionIndex(int currentQuestionIndex) {
+        this.currentQuestionIndex = currentQuestionIndex;
     }
 
     public boolean isThisTrueAnswer(int currentQuestionIndex) {
