@@ -5,6 +5,7 @@ public class TrueAnswer extends Answer {
 
     public TrueAnswer(String content) {
         super();
+        trueAnswer=content;
     }
 
     @Override
