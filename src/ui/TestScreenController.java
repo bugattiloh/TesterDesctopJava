@@ -26,14 +26,16 @@ public class TestScreenController {
 
     @FXML
     public void nextQuestionClick(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
-            Stage s = new Stage();
-            s.setScene(new Scene(root, 500, 500));
-            s.show();
-            ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        labelQuestion.setText("TEST");
+        
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
+//            Stage s = new Stage();
+//            s.setScene(new Scene(root, 500, 500));
+//            s.show();
+//            ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
