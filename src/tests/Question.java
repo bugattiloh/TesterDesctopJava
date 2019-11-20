@@ -1,19 +1,16 @@
 package tests;
 
-import java.util.List;
-
 public class Question {
-
-    private List<Answer> answers;
-    private String content;
+    private String question;
 
 
     public Question(String content) {
-        this.content = content;
+        this.question = content;
+
     }
 
-    public String getContent() {
-        return content;
+    public String getQuestion() {
+        return question;
     }
 
 }

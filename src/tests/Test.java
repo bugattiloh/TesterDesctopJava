@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Test {
 
-    private List<Question> questions;
-    private List<Answer> answers;
+    private List<TrueAnswer> trueAnswers;
+    private List<AnswerOfParticipant> answersOfParticipant;
     private int currentQuestionIndex;
 
     public void setCurrentQuestionIndex(int currentQuestionIndex) {
@@ -16,9 +16,14 @@ public class Test {
         currentQuestionIndex = 0;
     }
 
-    public boolean CheckAnswer(int currentQuestionIndex) {
-        return questions.get(currentQuestionIndex).getContent().equals(answers.get(currentQuestionIndex).getData());
+    public int getCurrentQuestionIndex() {
+        return currentQuestionIndex;
     }
+
+    public boolean isThisTrueAnswer(int currentQuestionIndex) {
+        return trueAnswers.get(currentQuestionIndex).getAnswer().equals(answersOfParticipant.get(currentQuestionIndex).getAnswer());
+    }
+
 }
 
 

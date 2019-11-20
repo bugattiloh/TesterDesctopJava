@@ -21,7 +21,7 @@ public class TestParticipant {
         return resultOfTest;
     }
 
-    public void setResultOfTest(int resultOfTest) {
-        this.resultOfTest = resultOfTest;
+    public void setResultOfTest() {
+        this.resultOfTest++;
     }
 }
