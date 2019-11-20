@@ -10,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import tests.Test;
 import tests.TestParticipant;
 
 import java.io.IOException;
@@ -39,15 +38,22 @@ public class HelloScreenController {
             try {
                 TestParticipant tester = new TestParticipant(textAreaNickname.getText());
 
-                Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
+                Parent root = fxmlLoader.load();
+                TestScreenController controller =  fxmlLoader.getController();
+                controller.setParticipant(tester);
+
+                //Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
                 Stage s = new Stage();
+
                 s.setScene(new Scene(root, 500, 500));
-                new Test().nextQuestionIndex();
                 s.show();
                 ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
     }
 }
 

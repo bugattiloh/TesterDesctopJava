@@ -5,14 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import tests.AnswerOfParticipant;
-import tests.Question;
-import tests.Test;
-import tests.TrueAnswer;
+import tests.*;
 
 public class TestScreenController {
-    Test test=new Test();
-
     @FXML
     public Label labelQuestion;
     @FXML
@@ -22,19 +17,38 @@ public class TestScreenController {
     @FXML
     public Button buttonNextQuestion;
 
+    private TestParticipant participant;
+    private Test test;
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
     @FXML
     public void nextQuestionClick(ActionEvent actionEvent) {
+
         test.nextQuestionIndex();
-        Question question =new Question("hello");
-        TrueAnswer trueAnswer=new TrueAnswer("bye");
+        Question question = new Question("hello");
+        TrueAnswer trueAnswer = new TrueAnswer("bye");
         test.addTrueAnswers(trueAnswer);
         labelQuestion.setText(question.getQuestion());
-        AnswerOfParticipant answerOfParticipant=new AnswerOfParticipant(textAreaAnswer.getText());
+        AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
         test.addAnswerOfParticipant(answerOfParticipant);
-        if (test.isThisTrueAnswer(test.getCurrentQuestionIndex())){
-        //TODO
+        if (test.isThisTrueAnswer(test.getCurrentQuestionIndex())) {
+            participant.setResultOfTest();
         }
         textAreaAnswer.setText(null);
     }
 
+    public TestParticipant getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(TestParticipant participant) {
+        this.participant = participant;
+    }
 }

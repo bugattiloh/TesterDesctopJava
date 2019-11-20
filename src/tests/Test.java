@@ -2,7 +2,7 @@ package tests;
 
 import java.util.List;
 
-public class Test {
+public  class Test {
 
     private List<TrueAnswer> trueAnswers;
     private List<AnswerOfParticipant> answersOfParticipant;
