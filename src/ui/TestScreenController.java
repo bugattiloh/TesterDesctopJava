@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import staticContext.StaticHolder;
 import tests.*;
 
 public class TestScreenController {
@@ -39,7 +40,7 @@ public class TestScreenController {
         AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
         test.addAnswerOfParticipant(answerOfParticipant);
         if (test.isThisTrueAnswer(test.getCurrentQuestionIndex())) {
-            participant.setResultOfTest();
+            StaticHolder.participant.setResultOfTest();
         }
         textAreaAnswer.setText(null);
     }
@@ -51,4 +52,5 @@ public class TestScreenController {
     public void setParticipant(TestParticipant participant) {
         this.participant = participant;
     }
+
 }

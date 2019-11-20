@@ -10,7 +10,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import staticContext.StaticHolder;
+import tests.Question;
 import tests.TestParticipant;
+import tests.TrueAnswer;
 
 import java.io.IOException;
 
@@ -42,6 +45,7 @@ public class HelloScreenController {
                 Parent root = fxmlLoader.load();
                 TestScreenController controller =  fxmlLoader.getController();
                 controller.setParticipant(tester);
+                StaticHolder.participant = tester;
 
                 //Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
                 Stage s = new Stage();
@@ -53,7 +57,6 @@ public class HelloScreenController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
     }
 }
 
