@@ -29,6 +29,7 @@ public class HelloScreenController {
         alert.setHeaderText(headerMessage);
         alert.setContentText(infoMessage);
         alert.showAndWait();
+        alert.close();
     }
 
     @FXML

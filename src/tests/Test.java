@@ -9,7 +9,7 @@ public class Test {
     private List<AnswerOfParticipant> answersOfParticipant;
     private int currentQuestionIndex;
 
-    public Test() {
+    public  Test() {
         currentQuestionIndex = 0;
         trueAnswers = new ArrayList<>();
         answersOfParticipant = new ArrayList<>();
