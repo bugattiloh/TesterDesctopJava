@@ -3,7 +3,7 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 
-public  class Test {
+public class Test {
 
     private List<TrueAnswer> trueAnswers;
     private List<AnswerOfParticipant> answersOfParticipant;
@@ -11,8 +11,8 @@ public  class Test {
 
     public Test() {
         currentQuestionIndex = 0;
-        List<TrueAnswer> trueAnswers=new ArrayList<>();
-        List<AnswerOfParticipant> answersOfParticipant=new ArrayList<>();
+        trueAnswers = new ArrayList<>();
+        answersOfParticipant = new ArrayList<>();
     }
 
     public void addTrueAnswers(TrueAnswer obj) {

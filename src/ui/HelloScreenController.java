@@ -37,20 +37,22 @@ public class HelloScreenController {
             infoBox("Enter yor nickname,please.", "Error", "'Nickname' field cannot be empty.");
         } else
             try {
-                TestParticipant tester = new TestParticipant(textAreaNickname.getText());
-                Test test = new Test();
+                StaticHolder.test = new Test();
+                StaticHolder.participant = new TestParticipant(textAreaNickname.getText());
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
                 TestScreenController controller = fxmlLoader.getController();
-                StaticHolder.participant = tester;
-                StaticHolder.test = test;
                 Stage s = new Stage();
                 s.setScene(new Scene(root, 500, 500));
+
                 Question question = new Question("hello");
                 TrueAnswer trueAnswer = new TrueAnswer("bye");
+
                 StaticHolder.test.addTrueAnswers(trueAnswer);
+
                 controller.labelQuestion.setText(question.getQuestion());
+
                 s.show();
                 ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
 
