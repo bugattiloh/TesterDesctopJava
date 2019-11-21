@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import staticContext.StaticHolder;
-import tests.*;
+import tests.AnswerOfParticipant;
+import tests.Question;
+import tests.TrueAnswer;
+
 
 public class TestScreenController {
     @FXML
@@ -18,39 +21,31 @@ public class TestScreenController {
     @FXML
     public Button buttonNextQuestion;
 
-    private TestParticipant participant;
-    private Test test;
-
-    public Test getTest() {
-        return test;
-    }
-
-    public void setTest(Test test) {
-        this.test = test;
-    }
 
     @FXML
     public void nextQuestionClick(ActionEvent actionEvent) {
-
-        test.nextQuestionIndex();
-        Question question = new Question("hello");
-        TrueAnswer trueAnswer = new TrueAnswer("bye");
-        test.addTrueAnswers(trueAnswer);
-        labelQuestion.setText(question.getQuestion());
-        AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
-        test.addAnswerOfParticipant(answerOfParticipant);
-        if (test.isThisTrueAnswer(test.getCurrentQuestionIndex())) {
-            StaticHolder.participant.setResultOfTest();
+        if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
+            AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
+            StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
+            if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
+                StaticHolder.participant.setResultOfTest();
+            }
+            StaticHolder.test.nextQuestionIndex();
+            textAreaAnswer.setText(null);
+        } else {
+            Question question = new Question("hello");
+            TrueAnswer trueAnswer = new TrueAnswer("bye");
+            StaticHolder.test.addTrueAnswers(trueAnswer);
+            labelQuestion.setText(question.getQuestion());
+            AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
+            StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
+            if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
+                StaticHolder.participant.setResultOfTest();
+            }
+            textAreaAnswer.setText(null);
+            StaticHolder.test.nextQuestionIndex();
         }
-        textAreaAnswer.setText(null);
     }
 
-    public TestParticipant getParticipant() {
-        return participant;
-    }
-
-    public void setParticipant(TestParticipant participant) {
-        this.participant = participant;
-    }
 
 }

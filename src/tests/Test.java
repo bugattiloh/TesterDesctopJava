@@ -1,5 +1,6 @@
 package tests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public  class Test {
@@ -10,6 +11,8 @@ public  class Test {
 
     public Test() {
         currentQuestionIndex = 0;
+        List<TrueAnswer> trueAnswers=new ArrayList<>();
+        List<AnswerOfParticipant> answersOfParticipant=new ArrayList<>();
     }
 
     public void addTrueAnswers(TrueAnswer obj) {

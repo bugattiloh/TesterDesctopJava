@@ -11,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import staticContext.StaticHolder;
-import tests.Question;
-import tests.TestParticipant;
-import tests.TrueAnswer;
+import tests.*;
 
 import java.io.IOException;
 
@@ -40,17 +38,19 @@ public class HelloScreenController {
         } else
             try {
                 TestParticipant tester = new TestParticipant(textAreaNickname.getText());
+                Test test = new Test();
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
-                TestScreenController controller =  fxmlLoader.getController();
-                controller.setParticipant(tester);
+                TestScreenController controller = fxmlLoader.getController();
                 StaticHolder.participant = tester;
-
-                //Parent root = FXMLLoader.load(getClass().getResource("../ui/TestScreen.fxml"));
+                StaticHolder.test = test;
                 Stage s = new Stage();
-
                 s.setScene(new Scene(root, 500, 500));
+                Question question = new Question("hello");
+                TrueAnswer trueAnswer = new TrueAnswer("bye");
+                StaticHolder.test.addTrueAnswers(trueAnswer);
+                controller.labelQuestion.setText(question.getQuestion());
                 s.show();
                 ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
 
