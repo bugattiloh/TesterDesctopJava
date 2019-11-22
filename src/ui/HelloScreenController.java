@@ -11,51 +11,63 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import staticContext.StaticHolder;
-import tests.*;
+import tests.Answers.TrueAnswer;
+import tests.Question;
+import tests.Test;
+import tests.TestParticipant;
 
 import java.io.IOException;
 
+import static launcher.Main.infoBox;
+
 public class HelloScreenController {
+
     @FXML
     public Button buttonStartTest;
     @FXML
     public TextArea textAreaNickname;
     @FXML
     public Button buttonCheckResult;
+    private  void openHelloScreenForm(){
+        try {
 
-    private static void infoBox(String infoMessage, String titleBar, String headerMessage) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titleBar);
-        alert.setHeaderText(headerMessage);
-        alert.setContentText(infoMessage);
-        alert.showAndWait();
-        alert.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            TestScreenController controller = fxmlLoader.getController();
+            Stage s = new Stage();
+            s.setScene(new Scene(root, 500, 500));
+            s.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
 
     @FXML
     public void startTestClick(ActionEvent actionEvent) {
+        //проверка на наличие никнейма
         if (textAreaNickname.getText().equals("")) {
             infoBox("Enter yor nickname,please.", "Error", "'Nickname' field cannot be empty.");
         } else
             try {
+                //создаю статический классы для данного теста
                 StaticHolder.test = new Test();
                 StaticHolder.participant = new TestParticipant(textAreaNickname.getText());
-
+                //открываю TestScreen и закрываю HelloScreen
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
-                TestScreenController controller = fxmlLoader.getController();
+                TestScreenController controllerTest = fxmlLoader.getController();
                 Stage s = new Stage();
                 s.setScene(new Scene(root, 500, 500));
-
-                Question question = new Question("hello");
-                TrueAnswer trueAnswer = new TrueAnswer("bye");
-
-                StaticHolder.test.addTrueAnswers(trueAnswer);
-
-                controller.labelQuestion.setText(question.getQuestion());
-
                 s.show();
                 ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+                //оформляю HelloScreen
+                Question question = new Question("hello");
+                TrueAnswer trueAnswer = new TrueAnswer("bye");
+                StaticHolder.test.addTrueAnswers(trueAnswer);
+                controllerTest.labelQuestion.setText(question.getQuestion());
 
             } catch (IOException e) {
                 e.printStackTrace();

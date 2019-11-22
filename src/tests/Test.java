@@ -1,5 +1,8 @@
 package tests;
 
+import tests.Answers.AnswerOfParticipant;
+import tests.Answers.TrueAnswer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +12,7 @@ public class Test {
     private List<AnswerOfParticipant> answersOfParticipant;
     private int currentQuestionIndex;
 
-    public  Test() {
+    public Test() {
         currentQuestionIndex = 0;
         trueAnswers = new ArrayList<>();
         answersOfParticipant = new ArrayList<>();
@@ -34,6 +37,11 @@ public class Test {
     public boolean isThisTrueAnswer(int currentQuestionIndex) {
         return trueAnswers.get(currentQuestionIndex).getAnswer().equals(answersOfParticipant.get(currentQuestionIndex).getAnswer());
     }
+
+    public boolean isThisTheEnd() {
+        return (currentQuestionIndex == 10);
+    }
+
 }
 
 

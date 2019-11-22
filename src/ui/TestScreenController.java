@@ -2,13 +2,22 @@ package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 import staticContext.StaticHolder;
-import tests.AnswerOfParticipant;
+import tests.Answers.AnswerOfParticipant;
 import tests.Question;
-import tests.TrueAnswer;
+import tests.Answers.TrueAnswer;
+
+import java.io.IOException;
+
+import static launcher.Main.infoBox;
 
 
 public class TestScreenController {
@@ -31,7 +40,6 @@ public class TestScreenController {
                 StaticHolder.participant.setResultOfTest();
             }
             StaticHolder.test.nextQuestionIndex();
-            textAreaAnswer.setText(null);
         } else {
             Question question = new Question("hello");
             TrueAnswer trueAnswer = new TrueAnswer("bye");
@@ -42,8 +50,12 @@ public class TestScreenController {
             if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
                 StaticHolder.participant.setResultOfTest();
             }
-            textAreaAnswer.setText(null);
             StaticHolder.test.nextQuestionIndex();
+        }
+        if(StaticHolder.test.isThisTheEnd()){
+            infoBox("Enter OK .", "The end of Test", "'Your result-"+StaticHolder.participant.getResultOfTest()+"/10");
+            ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+
         }
     }
 
