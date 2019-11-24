@@ -29,7 +29,7 @@ public class TestScreenController {
     @FXML
     public Button buttonNextQuestion;
 
-    public void openHelloScreenForm() {
+    private void openHelloScreenForm() {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/HelloScreen.fxml"));
@@ -45,27 +45,31 @@ public class TestScreenController {
 
     @FXML
     public void nextQuestionClick(ActionEvent nextQuestion) {
-        //ПРОВРЕКА НА ПЕРВЫЙ ВОПРОС
-        if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
-            AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
-            StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
-            if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
-                StaticHolder.participant.setResultOfTest();
-            }
-            StaticHolder.test.nextQuestionIndex();
-            textAreaAnswer.setText(null);
+        if (textAreaAnswer.getText().equals("")) {
+            infoBox("Enter OK to continue.", "Your anwer is empty", "Answer field cannot be empty.");
         } else {
-            Question question = new Question("hello");
-            TrueAnswer trueAnswer = new TrueAnswer("bye");
-            StaticHolder.test.addTrueAnswers(trueAnswer);
-            labelQuestion.setText(question.getQuestion());
-            AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
-            StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
-            if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
-                StaticHolder.participant.setResultOfTest();
+            //ПРОВРЕКА НА ПЕРВЫЙ ВОПРОС
+            if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
+                AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
+                StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
+                if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
+                    StaticHolder.participant.setResultOfTest();
+                }
+                StaticHolder.test.nextQuestionIndex();
+                textAreaAnswer.setText(null);
+            } else {
+                Question question = new Question("hello");
+                TrueAnswer trueAnswer = new TrueAnswer("bye");
+                StaticHolder.test.addTrueAnswers(trueAnswer);
+                labelQuestion.setText(question.getQuestion());
+                AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
+                StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
+                if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
+                    StaticHolder.participant.setResultOfTest();
+                }
+                textAreaAnswer.setText(null);
+                StaticHolder.test.nextQuestionIndex();
             }
-            textAreaAnswer.setText(null);
-            StaticHolder.test.nextQuestionIndex();
         }
         if (StaticHolder.test.isThisTheEnd()) {
             infoBox("Enter OK .", "The end of Test", "'Your result-" + StaticHolder.participant.getResultOfTest() + "/10");
@@ -73,8 +77,6 @@ public class TestScreenController {
             deleteTestAndParticipant();
             closeForm(nextQuestion);
             openHelloScreenForm();
-
-
         }
     }
 

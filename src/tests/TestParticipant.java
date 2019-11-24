@@ -2,6 +2,7 @@ package tests;
 
 public class TestParticipant {
     private String name;
+    private String password;
     private int resultOfTest;
 
 
