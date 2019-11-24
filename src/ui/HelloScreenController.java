@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 import staticContext.StaticHolder;
 import tests.Answers.TrueAnswer;
 import tests.Question;
-import tests.Test;
-import tests.TestParticipant;
 
 import java.io.IOException;
 
@@ -28,7 +26,7 @@ public class HelloScreenController {
     @FXML
     public Button buttonCheckResult;
 
-    private void openTestScreen(ActionEvent actionEvent) {
+    /*private void openTestScreen(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
             Parent root = fxmlLoader.load();
@@ -40,19 +38,32 @@ public class HelloScreenController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }*/
 
+    private void openResultOfParticipantScreen(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/ResultOfParticipantScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            ResultOfParticipantScreenController controllerResult = fxmlLoader.getController();
+            Stage s = new Stage();
+            s.setScene(new Scene(root, 500, 500));
+            s.show();
+            closeForm(actionEvent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
-    public void startTestClick(ActionEvent actionEvent) {
+    public void startTestClick(ActionEvent startTest) {
         //проверка на наличие никнейма
         if (textAreaNickname.getText().equals("")) {
             infoBox("Enter yor nickname,please.", "Error", "'Nickname' field cannot be empty.");
         } else
             try {
-                //создаю статический классы для данного теста
-                StaticHolder staticHolder=new StaticHolder(textAreaNickname.getText());
+                //создаю статический объекты (Участник и сам тест) для данного теста
+                StaticHolder staticHolder = new StaticHolder(textAreaNickname.getText());
                 //открываю TestScreen и закрываю HelloScreen
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
@@ -60,7 +71,7 @@ public class HelloScreenController {
                 Stage s = new Stage();
                 s.setScene(new Scene(root, 500, 500));
                 s.show();
-                closeForm(actionEvent);
+                closeForm(startTest);
                 //оформляю HelloScreen
                 Question question = new Question("hello");
                 TrueAnswer trueAnswer = new TrueAnswer("bye");
@@ -70,6 +81,16 @@ public class HelloScreenController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+    }
+
+    public void checkResultClick(ActionEvent checkResult) {
+        if (textAreaNickname.getText().equals("")) {
+            infoBox("Enter yor nickname,please.", "Error", "'Nickname' field cannot be empty.");
+        } else {
+            openResultOfParticipantScreen(checkResult);
+            //ЗАНОС ДАННЫХ УЧАСТНИКА В НУЖНЫЕ ЛЕЙБЛЫ
+            closeForm(checkResult);
+        }
     }
 }
 

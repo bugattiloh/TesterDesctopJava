@@ -29,7 +29,7 @@ public class TestScreenController {
     @FXML
     public Button buttonNextQuestion;
 
-    private void openHelloScreenForm() {
+    public void openHelloScreenForm() {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/HelloScreen.fxml"));
@@ -44,7 +44,8 @@ public class TestScreenController {
 
 
     @FXML
-    public void nextQuestionClick(ActionEvent actionEvent) {
+    public void nextQuestionClick(ActionEvent nextQuestion) {
+        //ПРОВРЕКА НА ПЕРВЫЙ ВОПРОС
         if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
             AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
             StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
@@ -68,9 +69,9 @@ public class TestScreenController {
         }
         if (StaticHolder.test.isThisTheEnd()) {
             infoBox("Enter OK .", "The end of Test", "'Your result-" + StaticHolder.participant.getResultOfTest() + "/10");
-            //Занести данные в ДБ
+            //ЗАНЕСТИ ДАННЫЕ В БАЗУ ДАННЫХ
             deleteTestAndParticipant();
-            closeForm(actionEvent);
+            closeForm(nextQuestion);
             openHelloScreenForm();
 
 

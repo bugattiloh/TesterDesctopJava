@@ -16,9 +16,11 @@ public class Main extends Application {
         launch(args);
     }
 
+
     public static void closeForm(ActionEvent actionEvent) {
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
+
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

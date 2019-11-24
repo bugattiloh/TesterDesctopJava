@@ -8,7 +8,7 @@
     <AnchorPane prefHeight="417.0" prefWidth="600.0">
         <Button fx:id="buttonStartTest" layoutX="203.0" layoutY="40.0" mnemonicParsing="false" onAction="#startTestClick" prefHeight="73.0" prefWidth="195.0" text="Start Test" />
         <TextArea fx:id="textAreaNickname" layoutX="203.0" layoutY="259.0" pickOnBounds="false" prefHeight="37.0" prefWidth="195.0" />
-        <Button fx:id="buttonCheckResult" layoutX="203.0" layoutY="135.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="195.0" text="Check your result" />
+        <Button  fx:id="buttonCheckResult" onAction="#checkResultClick" layoutX="203.0" layoutY="135.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="195.0" text="Check your result" />
         <Label layoutX="203.0" layoutY="230.0" prefHeight="17.0" prefWidth="154.0" text="Your nickname: " />
     </AnchorPane>
 </Group>
