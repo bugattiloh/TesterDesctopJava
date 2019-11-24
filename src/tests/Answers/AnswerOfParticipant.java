@@ -1,8 +1,6 @@
 package tests.Answers;
 
 
-import tests.Answers.Answer;
-
 public class AnswerOfParticipant extends Answer {
     private String answerOfParticipant;
 

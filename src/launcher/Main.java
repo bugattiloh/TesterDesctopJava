@@ -1,21 +1,23 @@
 package launcher;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import staticContext.StaticHolder;
 
 public class Main extends Application {
 
     public static void main(String[] args) {
-        createApplicationForTestingFuckingPeople();
         launch(args);
     }
 
-    private static void createApplicationForTestingFuckingPeople() {
-
+    public static void closeForm(ActionEvent actionEvent) {
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
     }
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) {
@@ -26,6 +28,13 @@ public class Main extends Application {
         alert.showAndWait();
         alert.close();
     }
+
+
+    public static void deleteTestAndParticipant() {
+        StaticHolder.test = null;
+        StaticHolder.participant = null;
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {

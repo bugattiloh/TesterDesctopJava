@@ -4,9 +4,6 @@ public class TestParticipant {
     private String name;
     private int resultOfTest;
 
-    TestParticipant() {
-
-    }
 
     public TestParticipant(String name) {
         this.name = name;

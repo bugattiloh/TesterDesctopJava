@@ -1,7 +1,5 @@
 package tests.Answers;
 
-import tests.Answers.Answer;
-
 public class TrueAnswer extends Answer {
     private String trueAnswer;
 
