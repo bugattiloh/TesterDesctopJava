@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import launcher.Main;
 
 import java.io.IOException;
 
 import static launcher.Main.closeForm;
-import static launcher.Main.main;
 
 public class ResultOfParticipantScreenController {
     @FXML
@@ -23,6 +20,7 @@ public class ResultOfParticipantScreenController {
     public Label nickNameOfParticipantTitle;
     @FXML
     public Button buttonBackToHelloScreen;
+
     private void openHelloScreen(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/HelloScreen.fxml"));
@@ -38,13 +36,11 @@ public class ResultOfParticipantScreenController {
     }
 
 
-
-
     @FXML
     public void backToHelloScreenClick(ActionEvent back) {
 
         closeForm(back);
-       openHelloScreen(back);
+        openHelloScreen(back);
 
     }
 }
