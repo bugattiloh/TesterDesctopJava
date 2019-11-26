@@ -1,5 +1,6 @@
 package ui;
 
+import DataBase.SqlToApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import staticContext.StaticHolder;
 import tests.Answers.AnswerOfParticipant;
-import tests.Answers.TrueAnswer;
 import tests.Question;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class TestScreenController {
     @FXML
     public void nextQuestionClick(ActionEvent nextQuestion) {
         if (textAreaAnswer.getText().equals("")) {
-            infoBox("Enter OK to continue.", "Your anwer is empty", "Answer field cannot be empty.");
+            infoBox("Enter OK to continue.", "Your answer is empty", "Answer field cannot be empty.");
         } else {
             //ПРОВРЕКА НА ПЕРВЫЙ ВОПРОС
             if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
@@ -58,9 +58,10 @@ public class TestScreenController {
                 StaticHolder.test.nextQuestionIndex();
                 textAreaAnswer.setText(null);
             } else {
-                Question question = new Question("hello");
-                TrueAnswer trueAnswer = new TrueAnswer("bye");
-                StaticHolder.test.addTrueAnswers(trueAnswer);
+                SqlToApplication sql=new SqlToApplication();
+                int indexNow=StaticHolder.test.getCurrentQuestionIndex();
+                Question question = new Question(indexNow,sql.getQuestionFromDbById(indexNow),sql.getTrueAnswerFromDbById(indexNow));
+                StaticHolder.test.addTrueAnswers(question.getTrue_answer());
                 labelQuestion.setText(question.getQuestion());
                 AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
                 StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);

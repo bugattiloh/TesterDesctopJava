@@ -8,18 +8,20 @@ import java.util.List;
 
 public class Test {
 
-    private List<TrueAnswer> trueAnswers;
+    private List<String> trueAnswers;
     private List<AnswerOfParticipant> answersOfParticipant;
     private int currentQuestionIndex;
 
     public Test() {
-        currentQuestionIndex = 0;
+        currentQuestionIndex = 1;
         trueAnswers = new ArrayList<>();
         answersOfParticipant = new ArrayList<>();
+        trueAnswers.add(0, "");
+        answersOfParticipant.add(0, null);
     }
 
-    public void addTrueAnswers(TrueAnswer obj) {
-        trueAnswers.add(currentQuestionIndex, obj);
+    public void addTrueAnswers(String trueAnswer) {
+        trueAnswers.add(currentQuestionIndex, trueAnswer);
     }
 
     public void addAnswerOfParticipant(AnswerOfParticipant obj) {
@@ -35,7 +37,7 @@ public class Test {
     }
 
     public boolean isThisTrueAnswer(int currentQuestionIndex) {
-        return trueAnswers.get(currentQuestionIndex).getAnswer().equals(answersOfParticipant.get(currentQuestionIndex).getAnswer());
+        return trueAnswers.get(currentQuestionIndex).equals(answersOfParticipant.get(currentQuestionIndex).getAnswer());
     }
 
     public boolean isThisTheEnd() {

@@ -1,6 +1,7 @@
 package tests;
 
 public class TestParticipant {
+    int id;
     private String name;
     private String password;
     private int resultOfTest;

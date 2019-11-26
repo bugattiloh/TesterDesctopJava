@@ -1,5 +1,6 @@
 package ui;
 
+import DataBase.SqlToApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import staticContext.StaticHolder;
-import tests.Answers.TrueAnswer;
 import tests.Question;
 
 import java.io.IOException;
@@ -59,11 +59,14 @@ public class HelloScreenController {
     public void startTestClick(ActionEvent startTest) {
         //проверка на наличие никнейма
         if (textAreaNickname.getText().equals("")) {
+
             infoBox("Enter yor nickname,please.", "Error", "'Nickname' field cannot be empty.");
         } else
             try {
+                SqlToApplication sql=new SqlToApplication();
                 //создаю статический объекты (Участник и сам тест) для данного теста
                 StaticHolder staticHolder = new StaticHolder(textAreaNickname.getText());
+                sql.addParticipantToDb(textAreaNickname.getText());
                 //открываю TestScreen и закрываю HelloScreen
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
@@ -73,9 +76,9 @@ public class HelloScreenController {
                 s.show();
                 closeForm(startTest);
                 //оформляю HelloScreen
-                Question question = new Question("hello");
-                TrueAnswer trueAnswer = new TrueAnswer("bye");
-                StaticHolder.test.addTrueAnswers(trueAnswer);
+                int indexNow=StaticHolder.test.getCurrentQuestionIndex();
+                Question question = new Question(indexNow,sql.getQuestionFromDbById(indexNow),sql.getTrueAnswerFromDbById(indexNow));
+                StaticHolder.test.addTrueAnswers(question.getTrue_answer());
                 controllerTest.labelQuestion.setText(question.getQuestion());
 
             } catch (IOException e) {
