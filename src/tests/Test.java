@@ -1,7 +1,6 @@
 package tests;
 
 import tests.Answers.AnswerOfParticipant;
-import tests.Answers.TrueAnswer;
 
 import java.util.ArrayList;
 import java.util.List;
