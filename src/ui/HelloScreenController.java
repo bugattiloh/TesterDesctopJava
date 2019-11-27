@@ -64,9 +64,10 @@ public class HelloScreenController {
         } else
             try {
                 SqlToApplication sql=new SqlToApplication();
+                int indexNow=StaticHolder.test.getCurrentQuestionIndex();
                 //создаю статический объекты (Участник и сам тест) для данного теста
-                StaticHolder staticHolder = new StaticHolder(textAreaNickname.getText());
-                sql.addParticipantToDb(textAreaNickname.getText());
+                StaticHolder staticHolder = new StaticHolder(textAreaNickname.getText(),sql.getParticipantbyNickname(textAreaNickname.getText()));
+
                 //открываю TestScreen и закрываю HelloScreen
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/TestScreen.fxml"));
                 Parent root = fxmlLoader.load();
@@ -76,8 +77,7 @@ public class HelloScreenController {
                 s.show();
                 closeForm(startTest);
                 //оформляю HelloScreen
-                int indexNow=StaticHolder.test.getCurrentQuestionIndex();
-                Question question = new Question(indexNow,sql.getQuestionFromDbById(indexNow),sql.getTrueAnswerFromDbById(indexNow));
+                Question question = sql.getQuestionById(indexNow);
                 StaticHolder.test.addTrueAnswers(question.getTrue_answer());
                 controllerTest.labelQuestion.setText(question.getQuestion());
 

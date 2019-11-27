@@ -46,6 +46,7 @@ public class TestScreenController {
     @FXML
     public void nextQuestionClick(ActionEvent nextQuestion) {
         SqlToApplication sql=new SqlToApplication();
+        int indexNow=StaticHolder.test.getCurrentQuestionIndex();
         if (textAreaAnswer.getText().equals("")) {
             infoBox("Enter OK to continue.", "Your answer is empty", "Answer field cannot be empty.");
         } else {
@@ -59,13 +60,12 @@ public class TestScreenController {
                 StaticHolder.test.nextQuestionIndex();
                 textAreaAnswer.setText(null);
             } else {
-                int indexNow=StaticHolder.test.getCurrentQuestionIndex();
-                Question question = new Question(indexNow,sql.getQuestionFromDbById(indexNow),sql.getTrueAnswerFromDbById(indexNow));
+                Question question = sql.getQuestionById(indexNow);
                 StaticHolder.test.addTrueAnswers(question.getTrue_answer());
                 labelQuestion.setText(question.getQuestion());
                 AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
                 StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
-                if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
+                if (StaticHolder.test.isThisTrueAnswer(indexNow)) {
                     StaticHolder.participant.setResultOfTest();
                 }
                 textAreaAnswer.setText(null);

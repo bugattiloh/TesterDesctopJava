@@ -40,7 +40,7 @@ public class Test {
     }
 
     public boolean isThisTheEnd() {
-        return (currentQuestionIndex == 10);
+        return (currentQuestionIndex == 11);
     }
 
 

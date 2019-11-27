@@ -56,47 +56,13 @@ public class SqlToApplication {
         return null;
     }
 
-    public String getQuestionFromDbById(int id) {
-        try {
-            Connection connection = DriverManager.getConnection(url, user, password);
 
-            Statement statement = connection.prepareStatement(String.format("SELECT * FROM questions WHERE id='%d'", id));
-
-            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM questions WHERE id='%d'", id));
-            String db_question = "";
-            if (rs.next()) {
-                db_question = rs.getString("question");
-            }
-            statement.close();
-            rs.close();
-            connection.close();
-
-            return db_question;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static String getUrl() {
-        return url;
-    }
-
-    public static String getUser() {
-        return user;
-    }
-
-    public static String getPassword() {
-        return password;
-    }
-
-    public TestParticipant getParticipantTobyId(int id) {
+    public TestParticipant getParticipantbyNickname(String name) {
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM test_participant WHERE id='%d'", id));
+            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM test_participant WHERE nickname='%s'", name));
             TestParticipant db_participant = null;
             if (rs.next()) {
                 int db_id = rs.getInt("id");
@@ -115,6 +81,7 @@ public class SqlToApplication {
         }
         return null;
     }
+    
 }
 
 
