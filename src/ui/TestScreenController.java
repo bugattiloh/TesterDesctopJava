@@ -1,85 +1,52 @@
 package ui;
 
-import DataBase.SqlToApplication;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
-import staticContext.StaticHolder;
-import tests.Answers.AnswerOfParticipant;
-import tests.Question;
+import javafx.scene.control.TextField;
+import models.LeaderBoard;
+import models.Question;
+import models.User;
+import statics.Database;
+import statics.FXMLHelper;
 
-import java.io.IOException;
-
-import static launcher.Main.*;
-
+import java.util.List;
 
 public class TestScreenController {
-    @FXML
     public Label labelQuestion;
-    @FXML
-    public TextArea textAreaAnswer;
-    @FXML
-    public Label labelTEST;
-    @FXML
-    public Button buttonNextQuestion;
+    public TextField textFieldUserAnswer;
+    private int questionIndex = -1;
+    private int score = 0;
+    private List<Question> questions;
 
-    private void openHelloScreenForm() {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/HelloScreen.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage s = new Stage();
-            s.setScene(new Scene(root, 500, 500));
-            s.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void prerun() {
+        questions = Database.selectQuestions();
+        nextQuestion();
     }
 
+    public void nextQuestion() {
+        questionIndex++;
+        if (questionIndex == questions.size()) {
+            FXMLHelper.infoBox("END TEST", "END", "You've scored " + score);
 
-    @FXML
-    public void nextQuestionClick(ActionEvent nextQuestion) {
-        SqlToApplication sql=new SqlToApplication();
-        int indexNow=StaticHolder.test.getCurrentQuestionIndex();
-        if (textAreaAnswer.getText().equals("")) {
-            infoBox("Enter OK to continue.", "Your answer is empty", "Answer field cannot be empty.");
+            LeaderBoard leaderBoard = new LeaderBoard(0, User.activeUser.getId(), score);
+            Database.insertLeaderBoard(leaderBoard);
+
+            FXMLHelper.backToStartScreen();
         } else {
-            //ПРОВРЕКА НА ПЕРВЫЙ ВОПРОС
-            if (StaticHolder.test.getCurrentQuestionIndex() == 0) {
-                AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
-                StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
-                if (StaticHolder.test.isThisTrueAnswer(StaticHolder.test.getCurrentQuestionIndex())) {
-                    StaticHolder.participant.setResultOfTest();
-                }
-                StaticHolder.test.nextQuestionIndex();
-                textAreaAnswer.setText(null);
-            } else {
-                Question question = sql.getQuestionById(indexNow);
-                StaticHolder.test.addTrueAnswers(question.getTrue_answer());
-                labelQuestion.setText(question.getQuestion());
-                AnswerOfParticipant answerOfParticipant = new AnswerOfParticipant(textAreaAnswer.getText());
-                StaticHolder.test.addAnswerOfParticipant(answerOfParticipant);
-                if (StaticHolder.test.isThisTrueAnswer(indexNow)) {
-                    StaticHolder.participant.setResultOfTest();
-                }
-                textAreaAnswer.setText(null);
-                StaticHolder.test.nextQuestionIndex();
-            }
-        }
-        if (StaticHolder.test.isThisTheEnd()) {
-            infoBox("Enter OK .", "The end of Test", "'Your result-" + StaticHolder.participant.getResultOfTest() + "/10");
-            //ЗАНЕСТИ ДАННЫЕ В БАЗУ ДАННЫХ
-            deleteTestAndParticipant();
-            closeForm(nextQuestion);
-            openHelloScreenForm();
+            labelQuestion.setText(questions.get(questionIndex).getQuestion());
         }
     }
 
+    private void submitQuestion() {
+        String userAnswer = textFieldUserAnswer.getText();
+        if (questions.get(questionIndex).getCorrect().equals(userAnswer)) {
+            score++;
+        }
+        textFieldUserAnswer.clear();
+    }
 
+    public void onButtonSubmitClick(ActionEvent actionEvent) {
+        submitQuestion();
+        nextQuestion();
+    }
 }

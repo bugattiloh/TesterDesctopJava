@@ -1,15 +1,14 @@
-package tests;
+package models;
 
 public class Question {
-
     private int id;
     private String question;
-    private String true_answer;
+    private String correct;
 
-    public Question(int id, String question, String true_answer) {
+    public Question(int id, String question, String correct) {
         this.id = id;
         this.question = question;
-        this.true_answer = true_answer;
+        this.correct = correct;
     }
 
     public int getId() {
@@ -24,11 +23,11 @@ public class Question {
         this.question = question;
     }
 
-    public String getTrue_answer() {
-        return true_answer;
+    public String getCorrect() {
+        return correct;
     }
 
-    public void setTrue_answer(String true_answer) {
-        this.true_answer = true_answer;
+    public void setCorrect(String correct) {
+        this.correct = correct;
     }
 }

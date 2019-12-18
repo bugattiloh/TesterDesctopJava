@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="ui.RegisterScreenController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="CENTER" prefWidth="600" prefHeight="400">
+        <HBox alignment="CENTER" prefWidth="600" prefHeight="400">
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label text="Login"/>
+                    <TextField fx:id="textFieldLogin" minWidth="150" minHeight="30"/>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label text="Password"/>
+                    <PasswordField fx:id="passwordFieldPassword" minWidth="150" minHeight="30"/>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label text="Email"/>
+                    <TextField fx:id="textFieldEmail" minWidth="150" minHeight="30"/>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button onAction="#onButtonBackClick" text="Back" minWidth="60" minHeight="25"/>
+                    <Button onAction="#onButtonRegisterClick" text="Register" minWidth="80" minHeight="25"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>
