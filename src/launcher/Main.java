@@ -1,7 +1,6 @@
 package launcher;
 
 import javafx.application.Application;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import statics.Database;
 import statics.FXMLHelper;

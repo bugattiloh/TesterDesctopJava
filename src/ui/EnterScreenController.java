@@ -30,7 +30,6 @@ public class EnterScreenController {
         }
 
         User.activeUser = user;
-
         TestScreenController testScreen = FXMLHelper.loadScreenReturnController("TestScreen");
         testScreen.prerun();
     }
