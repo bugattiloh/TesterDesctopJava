@@ -16,6 +16,7 @@ public class Database {
     private static Connection connection;
     private static boolean initiated = false;
 
+    
     public static void connect() {
         try {
             connection = DriverManager.getConnection(connectionString, login, password);
